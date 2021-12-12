@@ -3,28 +3,22 @@
   <div class="main-component">
     <div class="header">
       </div>
-      <h1>TWEZOR.IO</h1>
+      <!--<h1>TWEZOR.IO</h1>-->
         <nav>
         <button v-if="is_auth" v-on:click="loadHome"> Inicio </button>
         <button v-if="is_auth" v-on:click="loadAccount"> Cuenta </button>
         <button v-if="is_auth" v-on:click="logOut"> Cerrar Sesión </button>
         <!--<button v-if="!is_auth" v-on:click="loadLogIn" > Iniciar Sesión </button>
         <button v-if="!is_auth" v-on:click="loadSignUp" > Registrarse </button>-->
-      </nav>
-    
-
-    
+      </nav>    
       <router-view
         v-on:completedLogIn="completedLogIn"
         v-on:completedSignUp="completedSignUp"
       >
       </router-view>
     </div>
-
-    <div class="footer">
-      
+    <div class="footer">     
     </div>
-
   </div>
   
 </template>
@@ -105,14 +99,6 @@ export default {
     justify-content: space-between;
     align-items: center;
   }
-
-  h1{
-    width: 20%;
-    text-align: center;
-    font-size: 40px;
-    font-family:'Amaranth', sans-serif;
-  }
-
   .header nav{
     height: 100%;
     width: 20%;
@@ -141,6 +127,8 @@ export default {
     height: 85vh;
     margin: 0%;
     padding: 0%;
+    border-left: 10px solid #0f4d8b;
+    border-right: 10px solid #0f4d8b;
     background-image: linear-gradient(to right, white , blue);
   }
 

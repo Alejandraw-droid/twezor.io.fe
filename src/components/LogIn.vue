@@ -1,16 +1,23 @@
-<template>
+<template>   
     <div class="logIn_user">
+    <div class="titulo">    
+        <h1 style="font-size: 90px;position: relative;right: 604px;bottom: 405px;">Twezor.io</h1>
+    </div>
         <div class="container_logIn_user">
-            
             <form v-on:submit.prevent="processLogInUser" >
                 <input type="text" v-model="user.username" placeholder="Username">
                 <br>
                 <input type="password" v-model="user.password" placeholder="Password">
                 <br>
+                <h2 style="font-size: 15px;">Forgot-your-password?</h2>
                 <button type="submit">Iniciar Sesion</button>
+                <!--<p class="Forgot-your-password? text-right">
+                    router link-->
+                <h2 style="font-size: 15px;">Don't have an account? Sign Up?</h2>
             </form>
+        </div>    
         </div>
-    </div>
+    
 </template>
 
 <script>
@@ -59,12 +66,24 @@ export default {
         height: 100%;
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: right;
         align-items: center;
     }
-
-    .container_logIn_user {
-        border: 3px solid #283747;
+    .logIn_user h2{
+        color:#f4f5f5;   
+    }
+    .titulo {
+        margin-left: 15%;
+        margin-top:40%;
+    }
+    
+    h2{
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 2%;
+        text-align: center;
+        font-weight: 100;
+    }
+    .container_logIn_user {    
         border-radius: 10px;
         width: 25%;
         height: 60%;
@@ -73,22 +92,20 @@ export default {
         justify-content: center;
         align-items: center;
     }
-
-    .logIn_user h2{
-        color: #283747;
-    }
     .logIn_user form{
-        width: 70%;
+        width: 95%;
+        height: 90%;
+        margin-right:65%;
     }
 
     .logIn_user input{
         height: 40px;
         width: 100%;
         box-sizing: border-box;
-        padding: 10px 20px;
-        margin: 5px 0;
+        padding: 10px 29px;
+        margin: 11px 3px;
         border: 1px solid #283747;
-        border-radius: 12px;
+        border-radius: 13px;
         align-content: right;
     }
 
@@ -98,7 +115,7 @@ export default {
         color: #E5E7E9;
         background: #283747;
         border: 1px solid #E5E7E9;
-        border-radius: 12px;
+        border-radius: 19px;
         padding: 10px 25px;
         margin: 5px 0;
     }
