@@ -10,13 +10,15 @@
                 <input type="password" v-model="user.password" placeholder="Password">
                 <br>
                 <h2 style="font-size: 15px;">Forgot-your-password?</h2>
-                <button type="submit">Iniciar Sesion</button>
+                <div class="link">
+                <router-link class="link1" to="/user/signUp">Login</router-link>
+                </div>
                 <!--<p class="Forgot-your-password? text-right">
                     router link-->
                 <h2 style="font-size: 15px;">Don't have an account? Sign Up?</h2>
             </form>
         </div>    
-        </div>
+    </div>
     
 </template>
 
@@ -92,6 +94,15 @@ export default {
         justify-content: center;
         align-items: center;
     }
+    .link{
+        background-color: #2837478a;
+        text-decoration: underline;
+        font-size: 20px;
+        padding: 8px;
+        border-radius: 5px;
+        
+    }
+    
     .logIn_user form{
         width: 95%;
         height: 90%;
