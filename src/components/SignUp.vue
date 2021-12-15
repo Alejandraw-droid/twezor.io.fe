@@ -12,7 +12,7 @@
                 <br>
                 <input type="email" v-model="user.email" placeholder="Email">
                 <br>
-                <input type="number" v-model="user.account.balance" placeholder="Initial Balance">
+                <input type="number" v-model="user.balance" placeholder="Initial Balance">
                 <br>
                 <button type="submit">Registrarse</button>
             </form>
@@ -28,43 +28,48 @@ export default {
 
     data: function(){
         return {
-            user: {
-                username: "",
-                password: "",
-                name: "",
-                email: "",
-                account: {
-                    lastChangeDate: (new Date()).toJSON().toString(),
-                    balance: 0,
-                    isActive: true
-                }
-            }   
-        }
+        user: {
+            username: "",
+            password: "",
+            name: "",
+            email: "",
+            balance: 0,                 
+        },
+        };   
+        
     },
-    methods: {
-        processSignUp: function(){
-            axios.post(
-                "https://mision-tic-bank-be.herokuapp.com/user/",
-                this.user,
-                {headers: {}}
-            )
-                .then((result) => {
-                    let dataSignUp = {
-                        username: this.user.username,
-                        token_access: result.data.access,
-                        token_refresh: result.data.refresh,
+
+methods: {
+    processSignUp: async function(){
+        await this.$apollo
+            .mutate({
+                mutation: gql`
+                    mutation($userInput: SignUpInput!) {
+                        signUpUser(userInput: $userInput) {
+                            refresh
+                            access
+                        }
                     }
+                `,
+                variables: {
+                    userInput: this.user,
+                },
+            })         
+            .then((result) => {
+                let dataSignUp = {
+                    username: this.user.username,
+                    token_access: result.data.access,
+                    token_refresh: result.data.refresh,
+                };
 
-                    this.$emit('completedSignUp', dataSignUp)
+                this.$emit('completedSignUp', dataSignUp)
 
-                })
-                .catch((error) => {
-                    console.log(error)
-                    alert("ERROR: Fallo en el registro.");
-                });
-        }
-    }
-}
+            })
+            .catch((error) => 
+                alert("ERROR: Fallo en el registro."));
+            }
+        },
+    };
 </script>
 
 <style>

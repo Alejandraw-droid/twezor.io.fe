@@ -38,7 +38,7 @@ export default {
     verifyAuth: function() {
       this.is_auth = localStorage.getItem("isAuth") || false;
       if (this.is_auth == false)
-        this.$router.push({ name: "logIn" });
+        this.$router.push({ name: "init" });
       else
         this.$router.push({ name: "home" });
     },
@@ -138,10 +138,6 @@ export default {
     width: 100%;
     height: 10vh;
     min-height: 100px;
-    background-color: #0f4d8b ;
-    
+    background-color: #0f4d8b ; 
   }
-    
-
- 
 </style>

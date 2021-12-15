@@ -1,7 +1,7 @@
 <template>   
     <div class="logIn_user">
     <div class="titulo">    
-        <h1 style="font-size: 90px;position: relative;right: 604px;bottom: 405px;">Twezor.io</h1>
+        <h1 style="font-size: 90px;position: relative;right: 702px;bottom: 405px;">Twezor.io</h1>
     </div>
         <div class="container_logIn_user">
             <form v-on:submit.prevent="processLogInUser" >
@@ -10,7 +10,7 @@
                 <input type="password" v-model="user.password" placeholder="Password">
                 <br>
                 <h2 style="font-size: 15px;">Forgot-your-password?</h2>
-                <div class="link">
+                <div class="link style=color: #ffff;">
                 <router-link class="link1" to="/user/signUp">Login</router-link>
                 </div>
                 <!--<p class="Forgot-your-password? text-right">
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import gql from "graphql-tag";
             
 export default {
     name: "LogIn",
@@ -33,29 +33,38 @@ export default {
             user: {
                 username:"",
                 password:""
-            }
-        }
+            },
+        };
     },
+
     methods: {
-        processLogInUser: function(){
-            axios.post(
-                "https://mision-tic-bank-be.herokuapp.com/login/",
-                this.user,
-                {headers: {}}
-                )
+        processLogInUser: async function() {
+            await this.$apollo
+                .mutate({
+                    mutation: gql`
+                        mutation($credentials: CredentialsInput!) {
+                            logIn(credentials: $credentials) {
+                                refresh
+                                access
+                            }
+                        }
+                    `,
+                    variables: {
+                        credentials: this.user,
+                    },
+                })
                 .then((result) => {
                     let dataLogIn = {
-                    username: this.user.username,
-                    token_access: result.data.access,
-                    token_refresh: result.data.refresh,
-                    }
-
-                    this.$emit('completedLogIn', dataLogIn)
+                        username: this.user.username,
+                        token_access: result.data.access,
+                        token_refresh: result.data.refresh,
+                    };
+        
+                    this.$emit('completedLogIn', dataLogIn);
                 })
                 .catch((error) => {
-                    if (error.response.status == "401")
-                        alert("ERROR 401: Credenciales Incorrectas.");
-                });
+                    alert("ERROR 401: Credenciales Incorrectas.");
+                })
         }
     }
 }
